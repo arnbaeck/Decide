@@ -4,11 +4,27 @@
 package decide;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test void lic_1Test(){
+        int numPoints = 10;
+        double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1, 5.1, 8.1, -6.9, 3.1, -1.9, 1.1};
+        double[] COORDINATEY = {2.1, 3.1, -4.9, 2.1, 5.1, 4.1, -6.9, 2.1, -3.9, -5.9};
+        App.Parameters params = new App.Parameters();       params.RADIUS1 = 9.30;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_1();
+        assertEquals(true, actualValue);
+    }
+    
+    @Test void lic_1Test2(){
+        int numPoints = 10;
+        double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1, 5.1, 8.1, -6.9, 3.1, -1.9, 1.1};
+        double[] COORDINATEY = {2.1, 3.1, -4.9, 2.1, 5.1, 4.1, -6.9, 2.1, -3.9, -5.9};
+        App.Parameters params = new App.Parameters();       params.RADIUS1 = 9.31;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_1();
+        assertEquals(false, actualValue);
     }
 }
