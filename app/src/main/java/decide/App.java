@@ -2,9 +2,9 @@ package decide;
 
 import java.lang.Math;    
 
-    class App {
+class App {
 
-    class Parameters{
+    static class Parameters{
         double LENGTH1; 
         double RADIUS1 ; 
         double EPSILON ;
@@ -58,7 +58,6 @@ import java.lang.Math;
     
     public static void main (String[] args) {
         
-        
     }
 
     public App(int numPoints, double [] COORDINATEX, double [] COORDINATEY, boolean[] CMV, Parameters params, boolean[] PUV, Connectors[][] LCM){
@@ -73,6 +72,14 @@ import java.lang.Math;
     }
 
     boolean lic_1 () {
+        if(params.RADIUS1 < 0 || numPoints < 3) return false;
+        double dist1;       double dist2;       double dist3;
+        for(int i = 0; i < numPoints - 2; i++){
+            dist1 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+1] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+1] , 2));
+            dist2 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+2] , 2));
+            dist3 = Math.sqrt(Math.pow(COORDINATEX[i+1] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i+1] - COORDINATEY[i+2] , 2));
+            if(dist1 > 2 * params.RADIUS1 || dist2 > 2 * params.RADIUS1 || dist3 > 2 * params.RADIUS1) return true; 
+        }
         return false;
     }
 
@@ -137,6 +144,8 @@ import java.lang.Math;
     }
 
     // Should call on all the LIC-functions.
+    // Should check the condition for numPoints (2 ≤ NUMPOINTS ≤ 100)
+    // and other similar conditions should be checked here if they do not meet return false  
     void DECIDE () {
         
     }
