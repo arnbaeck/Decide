@@ -47,4 +47,24 @@ class AppTest {
         boolean actualValue = testInstance.lic_5();
         assertEquals(false, actualValue);
     }
+
+    @Test void lic_6Test1(){
+        int numPoints = 3;
+        double[] COORDINATEX = {20,3 ,-5};
+        double[] COORDINATEY = {20,-1 ,-8};
+        App.Parameters params = new App.Parameters();       params.DIST = 1.3;   params.N_PTS = 3;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_6();
+        assertEquals(true, actualValue);
+    }
+
+    @Test void lic_6Test2(){
+        int numPoints = 10;
+        double[] COORDINATEX = {5, -3, -5, 0, 1, 1, 2, 4, 2, 2.4};
+        double[] COORDINATEY = {-5, 1, 4, 2, 2, 1, 2, 4, 0, -3};
+        App.Parameters params = new App.Parameters();       params.DIST = 4.5;   params.N_PTS = 5;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_6();
+        assertEquals(false, actualValue);
+    }
 }
