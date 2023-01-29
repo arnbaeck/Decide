@@ -47,4 +47,49 @@ class AppTest {
         boolean actualValue = testInstance.lic_5();
         assertEquals(false, actualValue);
     }
+
+
+    @Test void lic_14Test(){
+        int numPoints = 9;
+        double[] COORDINATEX = {-2.9, -2.9, 1.1, 2.1, 2.1, 1.1, 1.1, 1.1, 4.1, 3.2};
+        double[] COORDINATEY = {3.1,  3.1, 1.1, 8.1, -4.9, 1.1, 1.1, 1.1, 2.1, 5.3};
+        App.Parameters params = new App.Parameters();       params.AREA1 = 25.49;       params.AREA2 = 15.01;
+        params.E_PTS = 2;       params.F_PTS = 3;   
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_14();
+        assertEquals(true, actualValue);
+    }
+    
+    @Test void lic_14Test2(){
+        int numPoints = 9;
+        double[] COORDINATEX = {-2.9, -2.9, 1.1, 2.1, 2.1, 1.1, 1.1, 1.1, 4.1, 3.2};
+        double[] COORDINATEY = {3.1,  3.1, 1.1, 8.1, -4.9, 1.1, 1.1, 1.1, 2.1, 5.3};
+        App.Parameters params = new App.Parameters();       params.AREA1 = 25.49;       params.AREA2 = 14.99;
+        params.E_PTS = 2;       params.F_PTS = 3;   
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_14();
+        assertEquals(false, actualValue);
+    }
+
+    @Test void lic_14Test3(){
+        int numPoints = 9;
+        double[] COORDINATEX = {-2.9, -2.9, 1.1, 2.1, 2.1, 1.1, 1.1, 1.1, 4.1, 3.2};
+        double[] COORDINATEY = {3.1,  3.1, 1.1, 8.1, -4.9, 1.1, 1.1, 1.1, 2.1, 5.3};
+        App.Parameters params = new App.Parameters();       params.AREA1 = 25.51;       params.AREA2 = 15.01;
+        params.E_PTS = 2;       params.F_PTS = 3;   
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_14();
+        assertEquals(false, actualValue);
+    }
+
+    @Test void lic_14Test4(){
+        int numPoints = 9;
+        double[] COORDINATEX = {-2.9, -2.9, 1.1, 2.1, 2.1, 1.1, 1.1, 1.1, 4.1, 3.2};
+        double[] COORDINATEY = {3.1,  3.1, 1.1, 8.1, -4.9, 1.1, 1.1, 1.1, 2.1, 5.3};
+        App.Parameters params = new App.Parameters();       params.AREA1 = 25.49;       params.AREA2 = 14.99;
+        params.E_PTS = 2;       params.F_PTS = 3;   
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_14();
+        assertEquals(false, actualValue);
+    }
 }
