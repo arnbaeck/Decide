@@ -40,7 +40,7 @@ class AppTest {
     
     @Test void lic_5Test2(){
         int numPoints = 10;
-        double[] COORDINATEX = {1.5, 3.2, 2.5, 4.5, 1.5, 3, -6.9, 3.1, 5, 1.1};
+        double[] COORDINATEX = {1.5, 3.2, 4.5, 5.5, 6.5, 6.5, 6.9, 7.1, 8, 9.1};
         double[] COORDINATEY = {2.1, 3.1, -4.9, 2.1, 5.1, 4.1, -6.9, 2.1, -3.9, -5.9};
         App.Parameters params = new App.Parameters();       params.RADIUS1 = 9.31;
         App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
