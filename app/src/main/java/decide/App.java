@@ -94,8 +94,24 @@ class App {
     boolean lic_4 () {
         return false;
     }
-
+    /*Method for LIC 5. This method checks if there are consecutive data points, (X[i],Y[i]) and (X[j],Y[j]),
+     such that X[j] - X[i] < 0. (where i = j-1) */
     boolean lic_5 () {
+        boolean flag = false;   double diffX;
+        for (int i = 0; i < numPoints - 1; i++) {
+            diffX = COORDINATEX[i + 1] - COORDINATEX[i];
+            if (flag) {
+                if (diffX < 0) {
+                    return true;
+                }else {
+                    flag = false;
+                }
+            }else {
+                if (diffX < 0) {
+                    flag = true;
+                }
+            }
+        }
         return false;
     }
 
