@@ -34,7 +34,7 @@ class AppTest {
         double[] COORDINATEY = {2.1, -3.1, -4.9, 2.1, 5.1};
         App.Parameters params = new App.Parameters();       params.QUADS = 2;       params.Q_PTS = 3;
         App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
-        boolean actualValue = testInstance.lic_5();
+        boolean actualValue = testInstance.lic_4();
         assertEquals(true, actualValue);
     }
 
@@ -44,7 +44,7 @@ class AppTest {
         double[] COORDINATEY = {2.1, 3.1, -4.9, 2.1, 5.1};
         App.Parameters params = new App.Parameters();       params.QUADS = 2;       params.Q_PTS = 3;
         App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
-        boolean actualValue = testInstance.lic_5();
+        boolean actualValue = testInstance.lic_4();
         assertEquals(false, actualValue);
     }
 
