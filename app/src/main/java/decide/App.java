@@ -112,6 +112,15 @@ class App {
     }
 
     boolean lic_7 () {
+        if(numPoints < 3 || params.K_PTS > numPoints - 2) {return false;}
+        for(int i = 0; i + params.K_PTS +1 < numPoints; i++){
+            double x1 = COORDINATEX[i];
+            double y1 = COORDINATEY[i];
+            double x2 = COORDINATEX[i + params.K_PTS + 1];
+            double y2 = COORDINATEX[i + params.K_PTS + 1];
+            double dist = DISTANCE(x1, x2, y1, y2);
+            if (DOUBLECOMPARE (dist, params.LENGTH1) == Comptype.GT){return true;}
+        }
         return false;
     }
     
@@ -142,7 +151,10 @@ class App {
     boolean lic_14 () {
        return false; 
     }
-
+    // Function to calculate the distance between 2 points
+    public static double DISTANCE (double x1, double x2, double y1, double y2){
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    }
     static Comptype DOUBLECOMPARE (double A, double B) {
         if (Math.abs(A-B)<0.000001)
             return Comptype.EQ;
