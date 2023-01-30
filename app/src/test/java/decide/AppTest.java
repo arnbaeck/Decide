@@ -5,17 +5,19 @@ package decide;
 
 import org.junit.jupiter.api.Test;
 
+import decide.App.Connectors;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
     @Test void lic_0Test(){
-    int numPoints = 2;
-    double[] COORDINATEX = {2.1, 0.1};
-    double[] COORDINATEY = {3.3, 1.1};
-    App.Parameters params = new App.Parameters();       params.RADIUS1 = 9.31; params.LENGTH1 = 1;
-    App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
-    boolean actualValue = testInstance.lic_0();
-    assertEquals(true, actualValue);
+        int numPoints = 2;
+        double[] COORDINATEX = {2.1, 0.1};
+        double[] COORDINATEY = {3.3, 1.1};
+        App.Parameters params = new App.Parameters();       params.RADIUS1 = 9.31; params.LENGTH1 = 1;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_0();
+        assertEquals(true, actualValue);
     }
 
     @Test void lic_0Test2(){
@@ -373,4 +375,81 @@ class AppTest {
         boolean actualValue = testInstance.lic_14();
         assertEquals(false, actualValue);
     }
+
+    // Checks that an input with valid tests are launched.
+    @Test void decide_test1() {
+        int numPoints = 28;
+        double[] COORDINATEX = {2.1, 0.1, 1.1, -2.9, 2.1, 4.1, 5.1, 1.5, -3.2, 4.5, 5.5, 6.5, 1.5, 3.2, 2.5, 4.5, 1.5, -2.5, -6.9, 3.1, -1.9, 1.1, 2.1, 4.1, 5.1, 8.1, -6.9, 0.1};
+        double[] COORDINATEY = {3.3, 1.1, 2.1, 3.1, -4.9, 2.1, 5.1, 2.1, 3.1, -4.9, 2.1, 5.1, 2.1, 3.1, -4.9, 2.1, 5.1, 4.1, -6.9, 2.1, -3.9, -5.9, 3.3, 2.1, 5.1, 4.1, -6.9, 1.1};
+        App.Parameters params = new App.Parameters();
+        params.RADIUS1 = 9.31;
+        params.LENGTH1 = 1;
+        params.EPSILON = 2;
+        params.QUADS = 2;
+        params.K_PTS = 4;
+        params.Q_PTS = 3;
+        params.G_PTS = 3;
+        boolean[] CMV = new boolean[15];
+        boolean[] PUV = {true, false, true, false, true, true, false, true, true, false, false, true, false, false, false};
+        App.Connectors[][] LCM = new App.Connectors[15][15];
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (PUV[i] || PUV[j]) {
+                    LCM[i][j] = Connectors.ORR;
+                } else {
+                    LCM[i][j] = Connectors.NOTUSED777;
+                }
+            }
+        }
+
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, CMV, params, PUV, LCM);
+        testInstance.DECIDE();
+        String actualValue = testInstance.LAUNCH;
+        assertEquals("YES", actualValue);
+    }
+
+    // Checks that an invalid input is not handled.
+    @Test void decide_test2() { 
+        int numPoints = 1;
+        double[] COORDINATEX = {1.2};
+        double[] COORDINATEY = {3.5};
+        App.Parameters params = new App.Parameters();
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        testInstance.DECIDE();
+        String actualValue = testInstance.LAUNCH;
+        assertEquals("", actualValue);
+    }
+
+    //Checks that an input with invalid tests are not launched.
+    @Test void decide_test3() {
+        int numPoints = 28;
+        double[] COORDINATEX = {2.1, 0.1, 1.1, -2.9, 2.1, 4.1, 5.1, 1.5, -3.2, 4.5, 5.5, 6.5, 1.5, 3.2, 2.5, 4.5, 1.5, -2.5, -6.9, 3.1, -1.9, 1.1, 2.1, 4.1, 5.1, 8.1, -6.9, 0.1};
+        double[] COORDINATEY = {3.3, 1.1, 2.1, 3.1, -4.9, 2.1, 5.1, 2.1, 3.1, -4.9, 2.1, 5.1, 2.1, 3.1, -4.9, 2.1, 5.1, 4.1, -6.9, 2.1, -3.9, -5.9, 3.3, 2.1, 5.1, 4.1, -6.9, 1.1};
+        App.Parameters params = new App.Parameters();
+        params.RADIUS1 = 9.31;
+        params.LENGTH1 = 100;
+        params.EPSILON = 2;
+        params.QUADS = 2;
+        params.K_PTS = 4;
+        params.Q_PTS = 3;
+        params.G_PTS = 3;
+        boolean[] CMV = new boolean[15];
+        boolean[] PUV = {true, false, true, false, true, true, false, true, true, false, false, true, false, false, false};
+        App.Connectors[][] LCM = new App.Connectors[15][15];
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (PUV[i] || PUV[j]) {
+                    LCM[i][j] = Connectors.ORR;
+                } else {
+                    LCM[i][j] = Connectors.NOTUSED777;
+                }
+            }
+        }
+
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, CMV, params, PUV, LCM);
+        testInstance.DECIDE();
+        String actualValue = testInstance.LAUNCH;
+        assertEquals("NO", actualValue);
+    }
+    
 }

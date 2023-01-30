@@ -447,6 +447,47 @@ class App {
     // Should check the condition for numPoints (2 ≤ NUMPOINTS ≤ 100)
     // and other similar conditions should be checked here if they do not meet return false
     void DECIDE () {
-        
+        if(numPoints < 2 || numPoints > 100){
+            LAUNCH = "";
+            return;         // Because we don't want to continue in that case?
+        }
+
+        PUM = new boolean[15][15];
+        FUV = new boolean[15];
+
+        CMV[0] = lic_0();       CMV[1] = lic_1();       CMV[2] = lic_2();       CMV[3] = lic_3();   CMV[4] = lic_4();
+        CMV[5] = lic_5();       CMV[6] = lic_6();       CMV[7] = lic_7();       CMV[8] = lic_8();   CMV[9] = lic_9();
+        CMV[10] = lic_10();     CMV[11] = lic_11();     CMV[12] = lic_12();     CMV[13] = lic_13(); CMV[14] = lic_14();
+
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                if(LCM[i][j] == Connectors.ANDD) PUM[i][j] = CMV[i] && CMV[j];
+                else if(LCM[i][j] == Connectors.ORR) PUM[i][j] = CMV[i] || CMV[j];
+                else if(LCM[i][j] == Connectors.NOTUSED777) PUM[i][j] = true;
+            }
+        }
+
+        for(int k = 0; k < 15; k++){
+            // Can be written as "if (!PUV[k])"
+            if(PUV[k] == false) FUV[k] = true;
+            else{
+                FUV[k] = true;
+                for(int l = 0; l < 15; l++){
+                    FUV[k] = FUV[k] && PUM[k][l]; 
+                }
+            }
+        }
+
+        //Can be made global
+        boolean launch = true;
+        for(int f = 0; f < 15; f++){
+            launch = launch && FUV[f];
+        }
+        if(launch) LAUNCH = "YES";
+        else LAUNCH = "NO";
+
+        System.out.println(LAUNCH);
+    
     }
 }
+
