@@ -28,6 +28,26 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
+    @Test void lic_1Test3(){
+        int numPoints = 3;
+        double[] COORDINATEX = {1.1, 2.1, 3.1};
+        double[] COORDINATEY = {1.1, 2.1, 3.1};
+        App.Parameters params = new App.Parameters();       params.RADIUS1 = 1.42;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_1();
+        assertEquals(false, actualValue);
+    }
+
+    @Test void lic_1Test4(){
+        int numPoints = 3;
+        double[] COORDINATEX = {1.1, 2.1, 3.1};
+        double[] COORDINATEY = {1.1, 2.1, 3.1};
+        App.Parameters params = new App.Parameters();       params.RADIUS1 = 1.40;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_1();
+        assertEquals(true, actualValue);
+    }
+
     @Test void lic_5Test1(){
         int numPoints = 10;
         double[] COORDINATEX = {1.5, 3.2, 2.5, 4.5, 1.5, -2.5, -6.9, 3.1, -1.9, 1.1};

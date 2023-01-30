@@ -73,12 +73,14 @@ class App {
 
     boolean lic_1 () {
         if(params.RADIUS1 < 0 || numPoints < 3) return false;
-        double dist1;       double dist2;       double dist3;
+        double x1; double y1;       double x2; double y2;       double x3; double y3;  
+        double epsilon = 0.000001;
         for(int i = 0; i < numPoints - 2; i++){
-            dist1 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+1] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+1] , 2));
-            dist2 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+2] , 2));
-            dist3 = Math.sqrt(Math.pow(COORDINATEX[i+1] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i+1] - COORDINATEY[i+2] , 2));
-            if(dist1 > 2 * params.RADIUS1 || dist2 > 2 * params.RADIUS1 || dist3 > 2 * params.RADIUS1) return true; 
+            x1 = COORDINATEX[i]; y1 = COORDINATEY[i];       x2 = COORDINATEX[i+1]; y2 = COORDINATEY[i+1];
+            x3 = COORDINATEX[i+2]; y3 = COORDINATEY[i+2];  
+            double radius = findRadius(x1, y1, x2, y2, x3, y3);
+            if(epsilon < (radius - params.RADIUS1) ) return true;
+            
         }
         return false;
     }
