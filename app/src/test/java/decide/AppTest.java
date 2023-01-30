@@ -74,7 +74,7 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
-    // Test that an acceptable set returns true.
+    // Test that an acceptable set finds three consecutive data points with an angle within the span.
     @Test void lic_2Test1() {
         int numPoints = 5;
         double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1, 5.1};
@@ -88,6 +88,8 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
+    // Test that an acceptable set does not find three consecutive data points creating an angle within the span.
+    // Also tests that a set which has two coinciding points returns false.
     @Test void lic_2Test2() {
         int numPoints = 3;
         double[] COORDINATEX = {1.6, 1.66, 1.46};
@@ -141,6 +143,7 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
+    // A test that finds a set of three datapoints which span over three quadrants.
     @Test void lic_4Test1(){
         int numPoints = 5;
         double[] COORDINATEX = {1.5, -3.2, 4.5, 5.5, 6.5};
@@ -151,6 +154,7 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
+    // A test that does not contain a set of three datapoints which span over three quadrants.
     @Test void lic_4Test2(){
         int numPoints = 5;
         double[] COORDINATEX = {1.5, 3.2, 4.5, 5.5, 6.5};
@@ -288,6 +292,9 @@ class AppTest {
         boolean actualValue = testInstance.lic_9();
         assertEquals(false, actualValue);
     }
+
+    // A test that finds a set of three data points, separated by E_pts and F_PTS respectively, whose triangle area
+    // is greater than AREA1.
     @Test void lic_10Test1(){
         int numPoints = 5;
         double[] COORDINATEX = {-1.3, 3.2, 2.5, 4.5, 1.5};
@@ -299,6 +306,8 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
+    // A test that does not find a set of three data points, separated by E_pts and F_PTS respectively, 
+    // whose triangle area is greater than AREA1.
     @Test void lic_10Test2(){
         int numPoints = 5;
         double[] COORDINATEX = {-1.3, 3.2, 2.5, 4.5, 1.5};
@@ -332,6 +341,9 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
+    // A test which finds at least one set of two data points, separated by K_PTS, 
+    // whose length is greater than LENGTH1. Also contains a set of two data points,
+    // separated by K_PTS, whose length is lesser than LENGTH2.
     @Test void lic_12Test1(){
         int numPoints = 4;
         double[] COORDINATEX = {1.5, 3.2, 4.5, 5.5};
@@ -343,6 +355,9 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
+    // A test which does not contain a set of two data points, separated by K_PTS, 
+    // whose length is greater than LENGTH1. Neither does it contain a set of two 
+    // data points, separated by K_PTS, whose length is lesser than LENGTH2.
     @Test void lic_12Test2(){
         int numPoints = 4;
         double[] COORDINATEX = {1.5, 3.2, 4.5, 5.5};
