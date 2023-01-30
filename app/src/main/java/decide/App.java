@@ -62,33 +62,6 @@ class App {
 
     }
 
-    public static double euDist (double x1, double x2, double y1, double y2){
-        return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
-    }
-
-    public static double findRadius (double x1, double y1,double x2, double y2,double x3, double y3){
-        double x12 = x1 - x2;
-        double x13 = x1 - x3;
-        double y12 = y1 - y2;
-        double y13 = y1 - y3;
-        double y31 = y3 - y1;
-        double y21 = y2 - y1;
-        double x31 = x3 - x1;
-        double x21 = x2 - x1;
-        double sx13 = (Math.pow(x1, 2) - Math.pow(x3, 2));
-        double sy13 = (Math.pow(y1, 2) - Math.pow(y3, 2));
-        double sx21 = (Math.pow(x2, 2) - Math.pow(x1, 2));
-        double sy21 = (Math.pow(y2, 2) - Math.pow(y1, 2));
-        double f = ((sx13) * (x12)+ (sy13) * (x12)+ (sx21) * (x13)+ (sy21) * (x13))/ (2 * ((y31) * (x12) - (y21) * (x13)));
-        double g = ((sx13) * (y12)+ (sy13) * (y12)+ (sx21) * (y13)+ (sy21) * (y13))/ (2 * ((x31) * (y12) - (x21) * (y13)));
-        double c = -Math.pow(x1, 2) - Math.pow(y1, 2) - 2 * g * x1 - 2 * f * y1;
-        double h = -g;
-        double k = -f;
-        double sqr_of_r = h * h + k * k - c;
-        double r = Math.sqrt(sqr_of_r);
-        return (r);
-    }
-
     public App(int numPoints, double [] COORDINATEX, double [] COORDINATEY, boolean[] CMV, Parameters params, boolean[] PUV, Connectors[][] LCM){
         this.numPoints = numPoints;         this.COORDINATEX = COORDINATEX;
         this.LCM = LCM;                     this.PUV = PUV;
@@ -428,10 +401,6 @@ class App {
 
     }
     // Function to calculate the distance between 2 points
-    public static double DISTANCE (double x1, double x2, double y1, double y2){
-        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
-    }
-
     public static double euDist (double x1, double x2, double y1, double y2){
         return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
     }

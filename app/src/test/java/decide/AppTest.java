@@ -84,7 +84,6 @@ class AppTest {
         actualValue = testInstance.lic_2();
         assertEquals(false, actualValue);
     }
-}
 
     @Test void lic_3Test(){
         int numPoints = 4;
