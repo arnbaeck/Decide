@@ -202,9 +202,38 @@ class App {
     boolean lic_13 () {
         return false;
     }
-    
+    /**
+     * lic_14 checks if there are three points, seperated by exactly E_PTS and F_PTS, respectively, that are vertices of a triangle
+     * with area greater than AREA1 and less than AREA2. (which can be the same or different from the three data points just mentioned). 
+     * Returns true if the condition is met.
+     * @return true or false
+     */
     boolean lic_14 () {
-       return false; 
+        if(params.E_PTS < 1 || params.F_PTS < 1 || params.AREA1 < 0 || params.AREA1 < 0 || numPoints < 5) return false;
+        double dist1;       double dist2;       double dist3;
+        double epsilon = 0.000001;  int totalRange = params.E_PTS + params.F_PTS + 2;
+        boolean flag1 = false, flag2 = false;
+        for(int i = 0; i < numPoints - totalRange; i++){
+            dist1 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+params.E_PTS + 1] , 2) + 
+            Math.pow(COORDINATEY[i] - COORDINATEY[i+params.E_PTS + 1] , 2));
+
+            dist2 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+totalRange] , 2) + 
+            Math.pow(COORDINATEY[i] - COORDINATEY[i+totalRange] , 2));
+
+            dist3 = Math.sqrt(Math.pow(COORDINATEX[i + params.E_PTS + 1] - COORDINATEX[i+totalRange] , 2) + 
+            Math.pow(COORDINATEY[i + params.E_PTS + 1] - COORDINATEY[i+totalRange] , 2));
+
+            if(dist1 == 0 || dist2 == 0  || dist3 == 0) continue;
+            double acos = (Math.pow(dist1, 2) + Math.pow(dist2, 2) - Math.pow(dist3, 2)) / (2 * dist1 * dist2);
+            if(Math.abs(-1 - acos) < epsilon) acos = -1;    if(Math.abs(1 - acos) < epsilon) acos = 1; 
+            double degree = Math.acos(acos);
+            double areaCalculated = Math.sin(degree) * dist1 * dist2 / 2;
+            if(DOUBLECOMPARE(areaCalculated, params.AREA1) == Comptype.GT) flag1 = true;
+            if(DOUBLECOMPARE(areaCalculated, params.AREA2) == Comptype.LT1111) flag2 = true;
+            if(flag1 && flag2) return true;
+        }
+        return false;
+       
     }
     // Function to calculate the distance between 2 points
     public static double DISTANCE (double x1, double x2, double y1, double y2){
