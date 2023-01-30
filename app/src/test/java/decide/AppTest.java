@@ -10,6 +10,8 @@ import decide.App.Connectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
+
+    // Test that an acceptable set returns true.
     @Test void lic_0Test(){
         int numPoints = 2;
         double[] COORDINATEX = {2.1, 0.1};
@@ -20,6 +22,7 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
+    // Check that invalid input returns false.
     @Test void lic_0Test2(){
         int numPoints = 2;
         double[] COORDINATEX = {1.1, 2.9};
@@ -198,6 +201,7 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
+    // Check that invalid input returns false.
     @Test void lic_7Test(){
         int numPoints = 2;
         double[] COORDINATEX = {2.1, 4.1};
@@ -207,8 +211,8 @@ class AppTest {
         boolean actualValue = testInstance.lic_7();
         assertEquals(false, actualValue);
     }
-    // params.K_PTS > numPoints - 2
-        
+
+    // Check if params.K_PTS > numPoints - 2 returns false.
     @Test void lic_7Test2(){
         int numPoints = 4;
         double[] COORDINATEX = {2.1, 4.1, 5.1, 8.1};
@@ -218,7 +222,8 @@ class AppTest {
         boolean actualValue = testInstance.lic_7();
         assertEquals(false, actualValue);
     }
-    
+
+    // Test that an acceptable set returns true.
     @Test void lic_7Test3(){
         int numPoints = 6;
         double[] COORDINATEX = {2.1, 4.1, 5.1, 8.1, -6.9, 0.1};
@@ -229,7 +234,7 @@ class AppTest {
         assertEquals(true, actualValue);
     }
     
-        //numPoints < 5
+    // Check if numPoints < 5 returns false.
     @Test void lic_8Test(){
           int numPoints = 2;
           double[] COORDINATEX = {2.1, 4.1};
@@ -240,7 +245,7 @@ class AppTest {
           assertEquals(false, actualValue);
     }
     
-        //params.A_PTS + params.B_PTS > numPoints - 3
+    // Check that invalid input returns false.
     @Test void lic_8Test2(){
           int numPoints = 8;
           double[] COORDINATEX = {40.0, 5.0, 7.5, 0.0, 9.1, 1.8, 6.7, -40.0};
@@ -250,6 +255,8 @@ class AppTest {
           boolean actualValue = testInstance.lic_8();
           assertEquals(false, actualValue);
     }
+
+    // Test that an acceptable set returns true.
     @Test void lic_8Test3(){
           int numPoints = 8;
           double[] COORDINATEX = {40.0, 5.0, 7.5, 0.0, 9.1, 1.8, 6.7, -40.0};
@@ -303,7 +310,7 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
-        //numPoints < 3
+    // Check if numPoints < 3 returns false.
     @Test void lic_11Test(){
         int numPoints = 2;
         double[] COORDINATEX = {2.1, 4.1};
@@ -313,6 +320,8 @@ class AppTest {
         boolean actualValue = testInstance.lic_11();
         assertEquals(false, actualValue);
     }
+
+    // Test that an acceptable set returns true.
     @Test void lic_11Test2(){
         int numPoints = 6;
         double[] COORDINATEX = {2.1, 4.1, 5.1, 8.1, -6.9, 0.1};
