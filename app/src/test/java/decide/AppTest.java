@@ -29,7 +29,11 @@ class AppTest {
         boolean actualValue = testInstance.lic_0();
         assertEquals(false, actualValue);
         }
-
+    /*
+     * This test case is to test whether lic_1 gives the correct result (which is true according to calculations made by hand)
+     * with the given input. The points that cannot be contained in a circle with a radius of 9.30 are (8.1, 4.1) - (-6.9, -6.9) - 
+     * (3.1, 2,1). (Calculated radius is approximately 9.3005). 
+     */
     @Test void lic_1Test(){
         int numPoints = 10;
         double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1, 5.1, 8.1, -6.9, 3.1, -1.9, 1.1};
@@ -39,7 +43,10 @@ class AppTest {
         boolean actualValue = testInstance.lic_1();
         assertEquals(true, actualValue);
     }
-
+    /*
+     * This method uses the same input sample as the first test. This one is to test whether the method returns false
+     * when all points can fit in the circle with the given radius.     
+     */
     @Test void lic_1Test2(){
         int numPoints = 10;
         double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1, 5.1, 8.1, -6.9, 3.1, -1.9, 1.1};
@@ -87,6 +94,10 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
+    /*
+     * This method tests whether the method returns true when there is a triangle spanned by consecutive three points the area of 
+     * which is greater than the AREA1. (Calculated result for the triangle with the largest area is 25.5)
+     */
     @Test void lic_3Test(){
         int numPoints = 4;
         double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1};
@@ -97,7 +108,10 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
-
+    /*
+     * This method tests whether the method returns false when there are no triangles spanned by consecutive three points the area of 
+     * which is greater than the AREA1. (Calculated result for the triangle with the largest area is 25.5)  
+     */
     @Test void lic_3Test2(){
         int numPoints = 4;
         double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1};
@@ -107,7 +121,10 @@ class AppTest {
         boolean actualValue = testInstance.lic_3();
         assertEquals(false, actualValue);
     }
-
+    /*
+     * This method tests if the points are collinear, then methods return true since there are no triangles spanned by
+     * these points.
+     */
     @Test void lic_3Test3(){
         int numPoints = 3;
         double[] COORDINATEX = {1.1, 2.9, 4.1};
@@ -332,6 +349,13 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
+    /*
+     * This method tests if three points separated by E_PTS and F_PTS respectively can span a triangle with an 
+     * area that is greater than AREA1 and less than AREA2. (These points can be different from each other)
+     * Expected result is true when AREA1 = 25.49 and AREA2 = 15.01
+     * (The largest calculated area of triangle spanned by these points is 25.5)
+     * (The smallest calculated area of triangle spanned by these points is 15.0)
+     */
     @Test void lic_14Test(){
         int numPoints = 9;
         double[] COORDINATEX = {-2.9, -2.9, 1.1, 2.1, 2.1, 1.1, 1.1, 1.1, 4.1, 3.2};
@@ -343,6 +367,14 @@ class AppTest {
         assertEquals(true, actualValue);
     }
 
+    
+    /*
+     * This method tests if three points separated by E_PTS and F_PTS respectively can span a triangle with an 
+     * area that is greater than AREA1 and less than AREA2. (These points can be different from each other)
+     * Expected result is false when AREA1 = 25.49 and AREA2 = 14.99
+     * (The largest calculated area of triangle spanned by these points is 25.5)
+     * (The smallest calculated area of triangle spanned by these points is 15.0)
+     */
     @Test void lic_14Test2(){
         int numPoints = 9;
         double[] COORDINATEX = {-2.9, -2.9, 1.1, 2.1, 2.1, 1.1, 1.1, 1.1, 4.1, 3.2};
@@ -354,6 +386,13 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
+    /*
+     * This method tests if three points separated by E_PTS and F_PTS respectively can span a triangle with an 
+     * area that is greater than AREA1 and less than AREA2. (These points can be different from each other)
+     * Expected result is false when AREA1 = 25.51 and AREA2 = 15.01
+     * (The largest calculated area of triangle spanned by these points is 25.5)
+     * (The smallest calculated area of triangle spanned by these points is 15.0)
+     */
     @Test void lic_14Test3(){
         int numPoints = 9;
         double[] COORDINATEX = {-2.9, -2.9, 1.1, 2.1, 2.1, 1.1, 1.1, 1.1, 4.1, 3.2};
@@ -365,11 +404,18 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
+    /*
+     * This method tests if three points separated by E_PTS and F_PTS respectively can span a triangle with an 
+     * area that is greater than AREA1 and less than AREA2. (These points can be different from each other)
+     * Expected result is false when AREA1 = 25.51 and AREA2 = 14.99
+     * (The largest calculated area of triangle spanned by these points is 25.5)
+     * (The smallest calculated area of triangle spanned by these points is 15.0)
+     */
     @Test void lic_14Test4(){
         int numPoints = 9;
         double[] COORDINATEX = {-2.9, -2.9, 1.1, 2.1, 2.1, 1.1, 1.1, 1.1, 4.1, 3.2};
         double[] COORDINATEY = {3.1,  3.1, 1.1, 8.1, -4.9, 1.1, 1.1, 1.1, 2.1, 5.3};
-        App.Parameters params = new App.Parameters();       params.AREA1 = 25.49;       params.AREA2 = 14.99;
+        App.Parameters params = new App.Parameters();       params.AREA1 = 25.51;       params.AREA2 = 14.99;
         params.E_PTS = 2;       params.F_PTS = 3;
         App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
         boolean actualValue = testInstance.lic_14();
