@@ -128,6 +128,12 @@ class App {
     }
 
     boolean lic_11 () {
+        if(numPoints < 3 || params.G_PTS > numPoints - 2) {return false;}
+        for(int i = 0; i + params.G_PTS +1 < numPoints; i++){
+            double x1 = COORDINATEX[i];
+            double x2 = COORDINATEX[i + params.G_PTS + 1];
+            if(DOUBLECOMPARE(x2, x1) == Comptype.LT1111){return true;}
+        }
         return false;
     }
 
