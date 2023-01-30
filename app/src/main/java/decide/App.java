@@ -321,10 +321,6 @@ class App {
         return Math.sqrt(s * (s-a) * (s-b) * (s-c));
     }
 
-    public static double euDist (double x1, double x2, double y1, double y2){
-        return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
-    }
-
     static Comptype DOUBLECOMPARE (double A, double B) {
         if (Math.abs(A-B)<0.000001)
             return Comptype.EQ;
