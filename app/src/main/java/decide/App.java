@@ -114,11 +114,22 @@ class App {
         double s;
         double Area;
         double h;
+        double distance;
         if (params.N_PTS < 3) {
             return false;
         }
         /** Solving using Heron's formula */
         for (int i = 0; i < numPoints - params.N_PTS + 1; i++) {
+            if (COORDINATEX[i] == COORDINATEX[i + (params.N_PTS- 1)]) {
+                for (int j = i; j < i + params.N_PTS; i++) {
+                    /** This part is the distance between the point and the line*/
+                    distance = Math.sqrt((COORDINATEY[i] - COORDINATEY[j]) * (COORDINATEY[i] - COORDINATEY[j]) +
+                            (COORDINATEX[i] - COORDINATEX[j]) * (COORDINATEX[i] - COORDINATEX[j]));
+                    if (Double.compare(distance, params.DIST) >= 0  ) {
+                        return true;
+                    }
+                }
+            }
             b = euDist(COORDINATEX[i], COORDINATEX[i + params.N_PTS - 1], COORDINATEY[i], COORDINATEY[i + params.N_PTS - 1]);
             for (int j = i; j < i + params.N_PTS - 1; j++) {
                 a = euDist(COORDINATEX[i], COORDINATEX[j], COORDINATEY[i], COORDINATEY[j]);
