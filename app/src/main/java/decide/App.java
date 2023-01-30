@@ -121,7 +121,34 @@ class App {
         return false;
     }
 
+    /*Method for LIC 4.  */
     boolean lic_4 () {
+        if (params.Q_PTS < 2 || params.Q_PTS > numPoints) return false;
+        if (params.QUADS < 1 || params.QUADS > 3) return false;
+
+        boolean[] fulfilledQuad = new boolean[4]; 
+        int nrQuads = 0;
+        for (int i = 0; i < numPoints; i++) {
+            for (int j = 0; j < params.Q_PTS ; j++) {
+                if (COORDINATEX[(i+j) % numPoints] >= 0 && COORDINATEY[(i+j) % numPoints] >= 0) {
+                    fulfilledQuad[0] = true;
+                } else if (COORDINATEX[(i+j) % numPoints] < 0 && COORDINATEY[(i+j) % numPoints] >= 0) {
+                    fulfilledQuad[1] = true;
+                } else if (COORDINATEX[(i+j) % numPoints] <= 0 && COORDINATEY[(i+j) % numPoints] < 0) {
+                    fulfilledQuad[2] = true;
+                } else {
+                    fulfilledQuad[3] = true;
+                }
+            }
+            for (boolean b : fulfilledQuad) {
+                if (b)
+                    nrQuads++;
+            }
+            if (nrQuads > params.QUADS)
+                return true;
+            nrQuads = 0;
+            fulfilledQuad = new boolean[4];
+        }
         return false;
     }
     /**Method for LIC 5. This method checks if there are consecutive data points, (X[i],Y[i]) and (X[j],Y[j]),
