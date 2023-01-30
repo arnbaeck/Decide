@@ -51,6 +51,26 @@ class AppTest {
     }
 
 
+    @Test void lic_1Test3(){
+        int numPoints = 3;
+        double[] COORDINATEX = {1.1, 2.1, 3.1};
+        double[] COORDINATEY = {1.1, 2.1, 3.1};
+        App.Parameters params = new App.Parameters();       params.RADIUS1 = 1.42;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_1();
+        assertEquals(false, actualValue);
+    }
+
+    @Test void lic_1Test4(){
+        int numPoints = 3;
+        double[] COORDINATEX = {1.1, 2.1, 3.1};
+        double[] COORDINATEY = {1.1, 2.1, 3.1};
+        App.Parameters params = new App.Parameters();       params.RADIUS1 = 1.40;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_1();
+        assertEquals(true, actualValue);
+    }
+
     // Test that an acceptable set returns true.
     @Test void lic_2Test1() {
         int numPoints = 5;
@@ -186,8 +206,9 @@ class AppTest {
         App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
         boolean actualValue = testInstance.lic_7();
         assertEquals(false, actualValue);
-        }
-        // params.K_PTS > numPoints - 2
+    }
+    // params.K_PTS > numPoints - 2
+        
     @Test void lic_7Test2(){
         int numPoints = 4;
         double[] COORDINATEX = {2.1, 4.1, 5.1, 8.1};
@@ -196,7 +217,8 @@ class AppTest {
         App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
         boolean actualValue = testInstance.lic_7();
         assertEquals(false, actualValue);
-            }
+    }
+    
     @Test void lic_7Test3(){
         int numPoints = 6;
         double[] COORDINATEX = {2.1, 4.1, 5.1, 8.1, -6.9, 0.1};
@@ -206,6 +228,7 @@ class AppTest {
         boolean actualValue = testInstance.lic_7();
         assertEquals(true, actualValue);
     }
+    
         //numPoints < 5
     @Test void lic_8Test(){
           int numPoints = 2;
@@ -216,6 +239,7 @@ class AppTest {
           boolean actualValue = testInstance.lic_8();
           assertEquals(false, actualValue);
     }
+    
         //params.A_PTS + params.B_PTS > numPoints - 3
     @Test void lic_8Test2(){
           int numPoints = 8;
