@@ -209,8 +209,35 @@ class App {
     boolean lic_8 () {
         return false;
     }
-    
+    /** Method for implementing LIC 9 using the law of cosine */
     boolean lic_9 () {
+        if (numPoints < 5){
+            return false;
+        }
+        double a;
+        double b;
+        double c;
+        double cos;
+        double angle;
+        for (int i = 0; i < numPoints - params.C_PTS - params.D_PTS - 2; i++){
+            if (COORDINATEX[i + params.C_PTS + 1] == COORDINATEX[i] && COORDINATEY[i + params.C_PTS + 1] == COORDINATEY[i]){
+                continue;
+            }
+            if (COORDINATEX[i + params.C_PTS + 1] == COORDINATEX[i + params.C_PTS + 1 + params.D_PTS + 1] &&
+                COORDINATEY[i + params.C_PTS + 1] == COORDINATEY[i + params.C_PTS + 1 + params.D_PTS + 1]){
+                continue;
+            }
+            a = euDist(COORDINATEX[i + params.C_PTS + 1 + params.D_PTS + 1], COORDINATEX[i + params.C_PTS + 1],
+                COORDINATEY[i + params.C_PTS + 1 + params.D_PTS + 1], COORDINATEY[i + params.C_PTS + 1]);
+            b = euDist(COORDINATEX[i], COORDINATEX[i + params.C_PTS + 1], COORDINATEY[i], COORDINATEY[i + params.C_PTS + 1]);
+            c = euDist(COORDINATEX[i], COORDINATEX[i + params.C_PTS + 1 + params.D_PTS + 1], COORDINATEY[i], COORDINATEY[i + params.C_PTS + 1 + params.D_PTS + 1]);
+            //COS of the angle at second point:
+            cos = (Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2)) / (2 * a * b);
+            angle = Math.acos(cos);
+            if (Double.compare(angle, (PI - params.EPSILON)) < 0 || Double.compare(angle, (PI + params.EPSILON)) > 0 ){
+                return true;
+            }
+        }
         return false;
     }
 
