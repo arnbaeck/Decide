@@ -133,8 +133,6 @@ class App {
         for (int first = 0; first < numPoints; first++) {
             second = (first+params.E_PTS+1) % numPoints;
             third = (first+params.E_PTS+params.F_PTS+2) % numPoints;
-            System.out.println("-----i: " + first + " ----------");
-            System.out.println("First: " + first + ", Second: " + second + ", Third: " + third);
             
             dist1 = Math.sqrt(Math.pow(COORDINATEX[first] - COORDINATEX[second] , 2) + Math.pow(COORDINATEY[first] - COORDINATEY[second] , 2));
             dist2 = Math.sqrt(Math.pow(COORDINATEX[second] - COORDINATEX[third] , 2) + Math.pow(COORDINATEY[second] - COORDINATEY[third] , 2));
@@ -142,7 +140,6 @@ class App {
             // System.out.println("Dist1: " + dist1 + ", dist2: " + dist2 + ", dist3: " + dist3);
             semiperimeter = (dist1 + dist2 + dist3)/2;
             area = Math.sqrt(semiperimeter*(semiperimeter-dist1)*(semiperimeter-dist2)*(semiperimeter-dist3));
-            System.out.println("Area: " + area);
             if (DOUBLECOMPARE(area, params.AREA1) == Comptype.GT) return true;
         }
         return false;
