@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.temporal.TemporalQueries;
+
 class AppTest {
     @Test void lic_1Test(){
         int numPoints = 10;
@@ -45,6 +47,28 @@ class AppTest {
         App.Parameters params = new App.Parameters();       params.RADIUS1 = 9.31;
         App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
         boolean actualValue = testInstance.lic_5();
+        assertEquals(false, actualValue);
+    }
+
+    @Test void lic_12Test1(){
+        int numPoints = 4;
+        double[] COORDINATEX = {1.5, 3.2, 4.5, 5.5};
+        double[] COORDINATEY = {2.1, 3.1, -4.9, 2.1};
+        App.Parameters params = new App.Parameters();       params.K_PTS = 1;
+        params.LENGTH1 = 7;        params.LENGTH2 = 5;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_12();
+        assertEquals(true, actualValue);
+    }
+
+    @Test void lic_12Test2(){
+        int numPoints = 4;
+        double[] COORDINATEX = {1.5, 3.2, 4.5, 5.5};
+        double[] COORDINATEY = {2.1, 3.1, -4.9, 2.1};
+        App.Parameters params = new App.Parameters();       params.K_PTS = 1;
+        params.LENGTH1 = 10;        params.LENGTH2 = 2;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_12();
         assertEquals(false, actualValue);
     }
 }

@@ -132,6 +132,19 @@ class App {
     }
 
     boolean lic_12 () {
+        if (params.LENGTH2 < 0) return false;
+        boolean condition1 = false;     boolean condition2 = false;     double dist;
+        for (int i = 0; i < numPoints; i++) {
+            dist = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[(i+params.K_PTS+1) % numPoints] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[(i+params.K_PTS+1) % numPoints] , 2));
+            if (dist > params.LENGTH1){
+                condition1 = true;
+            }
+            if (dist < params.LENGTH2) {
+                condition2 = true;
+            }
+        }
+        if (condition1 && condition2) return true;
+
         return false;
     }
 
