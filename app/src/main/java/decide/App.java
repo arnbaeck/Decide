@@ -1,26 +1,28 @@
 package decide;
 
 import java.lang.Math;
+import java.util.Collections;
+import java.util.Arrays;
 
 class App {
 
     static class Parameters{
-        double LENGTH1; 
-        double RADIUS1 ; 
+        double LENGTH1;
+        double RADIUS1 ;
         double EPSILON ;
-        double AREA1; 
+        double AREA1;
         int Q_PTS ;
-        int QUADS; 
-        double DIST ; 
-        int N_PTS ; 
-        int K_PTS ; 
-        int A_PTS ; 
-        int B_PTS ; 
-        int C_PTS ; 
-        int D_PTS ; 
-        int E_PTS ; 
-        int F_PTS ; 
-        int G_PTS ; 
+        int QUADS;
+        double DIST ;
+        int N_PTS ;
+        int K_PTS ;
+        int A_PTS ;
+        int B_PTS ;
+        int C_PTS ;
+        int D_PTS ;
+        int E_PTS ;
+        int F_PTS ;
+        int G_PTS ;
         double LENGTH2;
         double RADIUS2 ;
         double AREA2;
@@ -42,7 +44,7 @@ class App {
         EQ,
         GT
     }
-    
+
     // GIVEN
     int numPoints;
     double[] COORDINATEX;
@@ -55,9 +57,36 @@ class App {
     boolean[] FUV;
     String LAUNCH;
     Parameters params;
-    
+
     public static void main (String[] args) {
 
+    }
+
+    public static double euDist (double x1, double x2, double y1, double y2){
+        return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+    }
+
+    public static double findRadius (double x1, double y1,double x2, double y2,double x3, double y3){
+        double x12 = x1 - x2;
+        double x13 = x1 - x3;
+        double y12 = y1 - y2;
+        double y13 = y1 - y3;
+        double y31 = y3 - y1;
+        double y21 = y2 - y1;
+        double x31 = x3 - x1;
+        double x21 = x2 - x1;
+        double sx13 = (Math.pow(x1, 2) - Math.pow(x3, 2));
+        double sy13 = (Math.pow(y1, 2) - Math.pow(y3, 2));
+        double sx21 = (Math.pow(x2, 2) - Math.pow(x1, 2));
+        double sy21 = (Math.pow(y2, 2) - Math.pow(y1, 2));
+        double f = ((sx13) * (x12)+ (sy13) * (x12)+ (sx21) * (x13)+ (sy21) * (x13))/ (2 * ((y31) * (x12) - (y21) * (x13)));
+        double g = ((sx13) * (y12)+ (sy13) * (y12)+ (sx21) * (y13)+ (sy21) * (y13))/ (2 * ((x31) * (y12) - (x21) * (y13)));
+        double c = -Math.pow(x1, 2) - Math.pow(y1, 2) - 2 * g * x1 - 2 * f * y1;
+        double h = -g;
+        double k = -f;
+        double sqr_of_r = h * h + k * k - c;
+        double r = Math.sqrt(sqr_of_r);
+        return (r);
     }
 
     public App(int numPoints, double [] COORDINATEX, double [] COORDINATEY, boolean[] CMV, Parameters params, boolean[] PUV, Connectors[][] LCM){
@@ -66,18 +95,18 @@ class App {
         this.CMV = CMV;                     this.COORDINATEY = COORDINATEY;
         this.params = params;
     }
-    /*There exists at least one set of two consecutive data points 
+    /*There exists at least one set of two consecutive data points
       that are a distance greater than the length, LENGTH1, apart. */
     boolean lic_0 () {
         double dist;
         for(int i = 0; i < numPoints -1; i++){
             dist = DISTANCE(COORDINATEX[i], COORDINATEX[i+1], COORDINATEY[i], COORDINATEY[i+1]);
-            if(DOUBLECOMPARE (dist, params.LENGTH1) == Comptype.GT) return true; 
+            if(DOUBLECOMPARE (dist, params.LENGTH1) == Comptype.GT) return true;
         }
         return false;
     }
     /**
-     * lic_1 checks if there are three consecutive points which cannot all be contained within or on a circle with 
+     * lic_1 checks if there are three consecutive points which cannot all be contained within or on a circle with
      * a radius = RADIUS1 where (RADIUS >= 0). Returns true if the condition is met.
      * @return true or false
      */
@@ -89,7 +118,7 @@ class App {
             dist1 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+1] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+1] , 2));
             dist2 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+2] , 2));
             dist3 = Math.sqrt(Math.pow(COORDINATEX[i+1] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i+1] - COORDINATEY[i+2] , 2));
-            if(epsilon < (dist1 - 2 * params.RADIUS1) || epsilon < (dist2 - 2 * params.RADIUS1) || epsilon < (dist3 - 2 * params.RADIUS1)) return true; 
+            if(epsilon < (dist1 - 2 * params.RADIUS1) || epsilon < (dist2 - 2 * params.RADIUS1) || epsilon < (dist3 - 2 * params.RADIUS1)) return true;
         }
         return false;
     }
@@ -112,7 +141,7 @@ class App {
     }
 
     /**
-     * lic_3 checks if there are three consecutive points that are vertices of a triangle with 
+     * lic_3 checks if there are three consecutive points that are vertices of a triangle with
      * area greater than AREA1. Returns true if the condition is met.
      * @return true or false
      */
@@ -126,10 +155,10 @@ class App {
             dist3 = Math.sqrt(Math.pow(COORDINATEX[i+1] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i+1] - COORDINATEY[i+2] , 2));
             if(dist1 == 0 || dist2 == 0  || dist3 == 0) continue;
             double acos = (Math.pow(dist1, 2) + Math.pow(dist2, 2) - Math.pow(dist3, 2)) / (2 * dist1 * dist2);
-            if(Math.abs(-1 - acos) < epsilon) acos = -1;    if(Math.abs(1 - acos) < epsilon) acos = 1; 
+            if(Math.abs(-1 - acos) < epsilon) acos = -1;    if(Math.abs(1 - acos) < epsilon) acos = 1;
             double degree = Math.acos(acos);
             double areaCalculated = Math.sin(degree) * dist1 * dist2 / 2;
-            if( epsilon < (areaCalculated - params.AREA1)) return true; 
+            if( epsilon < (areaCalculated - params.AREA1)) return true;
         }
         return false;
     }
@@ -139,7 +168,7 @@ class App {
         if (params.Q_PTS < 2 || params.Q_PTS > numPoints) return false;
         if (params.QUADS < 1 || params.QUADS > 3) return false;
 
-        boolean[] fulfilledQuad = new boolean[4]; 
+        boolean[] fulfilledQuad = new boolean[4];
         int nrQuads = 0;
         for (int i = 0; i < numPoints; i++) {
             for (int j = 0; j < params.Q_PTS ; j++) {
@@ -218,7 +247,7 @@ class App {
     boolean lic_7 () {
         return false;
     }
-    
+
     boolean lic_8 () {
         return false;
     }
@@ -304,11 +333,49 @@ class App {
     }
 
     boolean lic_13 () {
+        double radius = 0;
+        boolean flag1 = false;
+        boolean flag2 = false;
+        double[] line = new double[3];
+
+        if (numPoints < 5){
+            return false;
+        }
+
+        for (int i = 0; i < numPoints - params.A_PTS - params.B_PTS - 2; i++){
+            if (COORDINATEX[i] == COORDINATEX[i + params.A_PTS + 1] && COORDINATEX[i] == COORDINATEX[i + params.A_PTS + 1 + params.B_PTS +1]
+             && COORDINATEX[i + params.A_PTS + 1] == COORDINATEX[i + params.A_PTS + 1 + params.B_PTS + 1]
+                    || COORDINATEY[i] == COORDINATEY[i + params.A_PTS + 1] && COORDINATEY[i] == COORDINATEY[i + params.A_PTS + 1 + params.B_PTS +1]
+                    && COORDINATEY[i + params.A_PTS + 1] == COORDINATEY[i + params.A_PTS + 1 + params.B_PTS + 1] ){
+                line[0] = euDist(COORDINATEX[i], COORDINATEX[i + params.A_PTS + 1], COORDINATEY[i], COORDINATEY[i + params.A_PTS +1]);
+                line[1] = euDist(COORDINATEX[i], COORDINATEX[i + params.A_PTS + 1 + params.B_PTS + 1], COORDINATEY[i], COORDINATEY[i + params.A_PTS +1 + params.B_PTS + 1]);
+                line[2] = euDist(COORDINATEX[i + params.A_PTS +1], COORDINATEX[i + params.A_PTS + 1 + params.B_PTS + 1], COORDINATEY[i + params.A_PTS + 1], COORDINATEY[i + params.A_PTS +1 + params.B_PTS + 1]);
+                double mini = -1;
+                for (int j = 0; j > line.length; j++){
+                    if (line[j] < mini){
+                        mini = line[j];
+                        radius = mini;
+                    }
+                }
+            }else {
+                radius = findRadius(COORDINATEX[i], COORDINATEY[i], COORDINATEX[i + params.A_PTS + 1], COORDINATEY[i + params.A_PTS + 1],
+                        COORDINATEX[i + params.A_PTS + 1 + params.B_PTS + 1], COORDINATEY[params.A_PTS + 1 + params.B_PTS + 1]);
+            }
+            if (radius >= params.RADIUS1){
+                flag1 = true;
+            }
+            if (radius <= params.RADIUS2){
+                flag2 = true;
+            }
+            if (flag1 && flag2){
+                return true;
+            }
+        }
         return false;
     }
     /**
      * lic_14 checks if there are three points, seperated by exactly E_PTS and F_PTS, respectively, that are vertices of a triangle
-     * with area greater than AREA1 and less than AREA2. (which can be the same or different from the three data points just mentioned). 
+     * with area greater than AREA1 and less than AREA2. (which can be the same or different from the three data points just mentioned).
      * Returns true if the condition is met.
      * @return true or false
      */
@@ -318,18 +385,18 @@ class App {
         double epsilon = 0.000001;  int totalRange = params.E_PTS + params.F_PTS + 2;
         boolean flag1 = false, flag2 = false;
         for(int i = 0; i < numPoints - totalRange; i++){
-            dist1 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+params.E_PTS + 1] , 2) + 
+            dist1 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+params.E_PTS + 1] , 2) +
             Math.pow(COORDINATEY[i] - COORDINATEY[i+params.E_PTS + 1] , 2));
 
-            dist2 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+totalRange] , 2) + 
+            dist2 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+totalRange] , 2) +
             Math.pow(COORDINATEY[i] - COORDINATEY[i+totalRange] , 2));
 
-            dist3 = Math.sqrt(Math.pow(COORDINATEX[i + params.E_PTS + 1] - COORDINATEX[i+totalRange] , 2) + 
+            dist3 = Math.sqrt(Math.pow(COORDINATEX[i + params.E_PTS + 1] - COORDINATEX[i+totalRange] , 2) +
             Math.pow(COORDINATEY[i + params.E_PTS + 1] - COORDINATEY[i+totalRange] , 2));
 
             if(dist1 == 0 || dist2 == 0  || dist3 == 0) continue;
             double acos = (Math.pow(dist1, 2) + Math.pow(dist2, 2) - Math.pow(dist3, 2)) / (2 * dist1 * dist2);
-            if(Math.abs(-1 - acos) < epsilon) acos = -1;    if(Math.abs(1 - acos) < epsilon) acos = 1; 
+            if(Math.abs(-1 - acos) < epsilon) acos = -1;    if(Math.abs(1 - acos) < epsilon) acos = 1;
             double degree = Math.acos(acos);
             double areaCalculated = Math.sin(degree) * dist1 * dist2 / 2;
             if(DOUBLECOMPARE(areaCalculated, params.AREA1) == Comptype.GT) flag1 = true;
@@ -337,7 +404,7 @@ class App {
             if(flag1 && flag2) return true;
         }
         return false;
-       
+
     }
     // Function to calculate the distance between 2 points
     public static double DISTANCE (double x1, double x2, double y1, double y2){
@@ -362,8 +429,8 @@ class App {
 
     // Should call on all the LIC-functions.
     // Should check the condition for numPoints (2 ≤ NUMPOINTS ≤ 100)
-    // and other similar conditions should be checked here if they do not meet return false  
+    // and other similar conditions should be checked here if they do not meet return false
     void DECIDE () {
-        
+
     }
 }
