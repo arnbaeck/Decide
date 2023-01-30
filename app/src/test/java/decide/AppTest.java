@@ -52,7 +52,7 @@ class AppTest {
         int numPoints = 5;
         double[] COORDINATEX = {0, 4, 0, 4, 10};
         double[] COORDINATEY = {10, 4, 0, 4, 0};
-        App.Parameters params = new App.Parameters();       params.EPSILON = 85;
+        App.Parameters params = new App.Parameters();       params.EPSILON = 1;
         params.C_PTS = 1;   params.D_PTS = 1;
         App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
         boolean actualValue = testInstance.lic_9();
