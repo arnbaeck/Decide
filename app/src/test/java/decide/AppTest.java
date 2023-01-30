@@ -65,8 +65,8 @@ class AppTest {
 
     @Test void lic_2Test2() {
         int numPoints = 3;
-        double[] COORDINATEX = {1.6, 1.63, 1.7};
-        double[] COORDINATEY = {-3.7, -3.79, -4.0};
+        double[] COORDINATEX = {1.6, 1.66, 1.46};
+        double[] COORDINATEY = {-3.7, -3.83, -3.36};
 
         App.Parameters params = new App.Parameters();
         params.EPSILON = 3;
@@ -77,8 +77,8 @@ class AppTest {
 
         // Test that a set of points where one set coincides with the vertex, and
         // contains no other valid sets, returns false.
-        COORDINATEX[2] = 1.63;
-        COORDINATEY[2] = -3.79;
+        COORDINATEX[2] = 1.66;
+        COORDINATEY[2] = -3.83;
 
         testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
         actualValue = testInstance.lic_2();
