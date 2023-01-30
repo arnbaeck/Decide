@@ -1,6 +1,6 @@
 package decide;
 
-import java.lang.Math;    
+import java.lang.Math;
 
 class App {
 
@@ -57,7 +57,7 @@ class App {
     Parameters params;
     
     public static void main (String[] args) {
-        
+
     }
 
     public App(int numPoints, double [] COORDINATEX, double [] COORDINATEY, boolean[] CMV, Parameters params, boolean[] PUV, Connectors[][] LCM){
@@ -66,8 +66,14 @@ class App {
         this.CMV = CMV;                     this.COORDINATEY = COORDINATEY;
         this.params = params;
     }
-
+    /*There exists at least one set of two consecutive data points 
+      that are a distance greater than the length, LENGTH1, apart. */
     boolean lic_0 () {
+        double dist;
+        for(int i = 0; i < numPoints -1; i++){
+            dist = DISTANCE(COORDINATEX[i], COORDINATEX[i+1], COORDINATEY[i], COORDINATEY[i+1]);
+            if(DOUBLECOMPARE (dist, params.LENGTH1) == Comptype.GT) return true; 
+        }
         return false;
     }
 
@@ -133,6 +139,10 @@ class App {
     
     boolean lic_14 () {
        return false; 
+    }
+    // Function to calculate the distance between 2 points
+    public static double DISTANCE (double x1, double x2, double y1, double y2){
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
 
     static Comptype DOUBLECOMPARE (double A, double B) {
