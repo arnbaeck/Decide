@@ -108,6 +108,7 @@ class App {
             if (DOUBLECOMPARE(distAB, 0) == Comptype.EQ || DOUBLECOMPARE(distBC, 0) == Comptype.EQ) continue;
             
             angle = Math.acos((Math.pow(distAB, 2) + Math.pow(distBC, 2) - Math.pow(distAC, 2)) / (2 * distAB * distBC));
+            angle = Math.toDegrees(angle);
             if (DOUBLECOMPARE(angle, (PI - params.EPSILON)) == Comptype.LT1111 || DOUBLECOMPARE(angle, (PI + params.EPSILON)) == Comptype.GT) return true;
         }
         return false;
@@ -446,6 +447,6 @@ class App {
     // Should check the condition for numPoints (2 ≤ NUMPOINTS ≤ 100)
     // and other similar conditions should be checked here if they do not meet return false
     void DECIDE () {
-
+        
     }
 }
