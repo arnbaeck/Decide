@@ -8,3 +8,5 @@
     
 Anton Ärnbäck
     Implemented LIC 5 with 2 tests.
+    Implemented LIC 6 with 2 tests.
+    Implemented LIC 9 with 2 tests.
