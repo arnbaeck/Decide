@@ -124,7 +124,7 @@ class App {
     boolean lic_4 () {
         return false;
     }
-    /*Method for LIC 5. This method checks if there are consecutive data points, (X[i],Y[i]) and (X[j],Y[j]),
+    /**Method for LIC 5. This method checks if there are consecutive data points, (X[i],Y[i]) and (X[j],Y[j]),
      such that X[j] - X[i] < 0. (where i = j-1) */
     boolean lic_5 () {
         double diffX;
@@ -136,8 +136,42 @@ class App {
         }
         return false;
     }
-
+    /** Method for solving LIC 6 using Heron's formula. */
     boolean lic_6 () {
+        double a;
+        double b;
+        double c;
+        double s;
+        double Area;
+        double h;
+        double distance;
+        if (params.N_PTS < 3) {
+            return false;
+        }
+        /** Solving using Heron's formula */
+        for (int i = 0; i < numPoints - params.N_PTS + 1; i++) {
+            if (COORDINATEX[i] == COORDINATEX[i + (params.N_PTS- 1)]) {
+                for (int j = i; j < i + params.N_PTS; i++) {
+                    /** This part is the distance between the point and the line*/
+                    distance = Math.sqrt((COORDINATEY[i] - COORDINATEY[j]) * (COORDINATEY[i] - COORDINATEY[j]) +
+                            (COORDINATEX[i] - COORDINATEX[j]) * (COORDINATEX[i] - COORDINATEX[j]));
+                    if (Double.compare(distance, params.DIST) >= 0  ) {
+                        return true;
+                    }
+                }
+            }
+            b = euDist(COORDINATEX[i], COORDINATEX[i + params.N_PTS - 1], COORDINATEY[i], COORDINATEY[i + params.N_PTS - 1]);
+            for (int j = i; j < i + params.N_PTS - 1; j++) {
+                a = euDist(COORDINATEX[i], COORDINATEX[j], COORDINATEY[i], COORDINATEY[j]);
+                c = euDist(COORDINATEX[j], COORDINATEX[i + params.N_PTS - 1], COORDINATEY[j], COORDINATEY[i + params.N_PTS - 1]);
+                s = (a + b + c) / 2;
+                Area = triArea(a, b, c, s);
+                h = (2*Area) / b;
+                if (Double.compare(h, params.DIST) > 0){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -175,6 +209,14 @@ class App {
     // Function to calculate the distance between 2 points
     public static double DISTANCE (double x1, double x2, double y1, double y2){
         return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    }
+
+    public static double euDist (double x1, double x2, double y1, double y2){
+        return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+    }
+
+    public static double triArea (double a, double b, double c, double s){
+        return Math.sqrt(s * (s-a) * (s-b) * (s-c));
     }
 
     static Comptype DOUBLECOMPARE (double A, double B) {
