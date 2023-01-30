@@ -70,15 +70,20 @@ class App {
     boolean lic_0 () {
         return false;
     }
-
+    /**
+     * lic_1 checks if there are three consecutive points which cannot all be contained within or on a circle with 
+     * a radius = RADIUS1 where (RADIUS >= 0). Returns true if the condition is met.
+     * @return true or false
+     */
     boolean lic_1 () {
         if(params.RADIUS1 < 0 || numPoints < 3) return false;
         double dist1;       double dist2;       double dist3;
+        double epsilon = 0.000001;
         for(int i = 0; i < numPoints - 2; i++){
             dist1 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+1] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+1] , 2));
             dist2 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+2] , 2));
             dist3 = Math.sqrt(Math.pow(COORDINATEX[i+1] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i+1] - COORDINATEY[i+2] , 2));
-            if(dist1 > 2 * params.RADIUS1 || dist2 > 2 * params.RADIUS1 || dist3 > 2 * params.RADIUS1) return true; 
+            if(epsilon < (dist1 - 2 * params.RADIUS1) || epsilon < (dist2 - 2 * params.RADIUS1) || epsilon < (dist3 - 2 * params.RADIUS1)) return true; 
         }
         return false;
     }
@@ -87,7 +92,26 @@ class App {
         return false;
     }
 
+    /**
+     * lic_3 checks if there are three consecutive points that are vertices of a triangle with 
+     * area greater than AREA1. Returns true if the condition is met.
+     * @return true or false
+     */
     boolean lic_3 () {
+        if(params.RADIUS1 < 0 || numPoints < 3) return false;
+        double dist1;       double dist2;       double dist3;
+        double epsilon = 0.000001;
+        for(int i = 0; i < numPoints - 2; i++){
+            dist1 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+1] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+1] , 2));
+            dist2 = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+2] , 2));
+            dist3 = Math.sqrt(Math.pow(COORDINATEX[i+1] - COORDINATEX[i+2] , 2) + Math.pow(COORDINATEY[i+1] - COORDINATEY[i+2] , 2));
+            if(dist1 == 0 || dist2 == 0  || dist3 == 0) continue;
+            double acos = (Math.pow(dist1, 2) + Math.pow(dist2, 2) - Math.pow(dist3, 2)) / (2 * dist1 * dist2);
+            if(Math.abs(-1 - acos) < epsilon) acos = -1;    if(Math.abs(1 - acos) < epsilon) acos = 1; 
+            double degree = Math.acos(acos);
+            double areaCalculated = Math.sin(degree) * dist1 * dist2 / 2;
+            if( epsilon < (areaCalculated - params.AREA1)) return true; 
+        }
         return false;
     }
 
