@@ -258,6 +258,18 @@ class App {
     }
 
     boolean lic_8 () {
+        if(numPoints < 5 || (params.A_PTS + params.B_PTS) > numPoints - 3) {return false;}
+        for(int i = 0; i + params.A_PTS + params.B_PTS +2 < numPoints; i++){
+            double x1 = COORDINATEX[i];
+            double y1 = COORDINATEY[i];
+            double x2 = COORDINATEX[i + params.A_PTS + 1];
+            double y2 = COORDINATEY[i + params.A_PTS + 1];
+            double x3 = COORDINATEX[i + params.A_PTS + params.B_PTS + 2];
+            double y3 = COORDINATEY[i + params.A_PTS + params.B_PTS + 2];
+
+            double r = findRadius(x1, y1, x2, y2, x3, y3);
+            if (DOUBLECOMPARE (r, params.RADIUS1) == Comptype.GT){return true;}
+        }
         return false;
     }
     /** Method for implementing LIC 9 using the law of cosine */
@@ -437,6 +449,28 @@ class App {
         if (A<B)
             return Comptype.LT1111;
         return Comptype.GT;
+    }
+    public static double findRadius (double x1, double y1,double x2, double y2,double x3, double y3){
+        double x12 = x1 - x2;
+        double x13 = x1 - x3;
+        double y12 = y1 - y2;
+        double y13 = y1 - y3;
+        double y31 = y3 - y1;
+        double y21 = y2 - y1;
+        double x31 = x3 - x1;
+        double x21 = x2 - x1;
+        double sx13 = (Math.pow(x1, 2) - Math.pow(x3, 2));
+        double sy13 = (Math.pow(y1, 2) - Math.pow(y3, 2));
+        double sx21 = (Math.pow(x2, 2) - Math.pow(x1, 2));
+        double sy21 = (Math.pow(y2, 2) - Math.pow(y1, 2));
+        double f = ((sx13) * (x12)+ (sy13) * (x12)+ (sx21) * (x13)+ (sy21) * (x13))/ (2 * ((y31) * (x12) - (y21) * (x13)));
+        double g = ((sx13) * (y12)+ (sy13) * (y12)+ (sx21) * (y13)+ (sy21) * (y13))/ (2 * ((x31) * (y12) - (x21) * (y13)));
+        double c = -Math.pow(x1, 2) - Math.pow(y1, 2) - 2 * g * x1 - 2 * f * y1;
+        double h = -g;
+        double k = -f;
+        double sqr_of_r = h * h + k * k - c;
+        double r = Math.sqrt(sqr_of_r);
+        return (r);
     }
 
     // Should call on all the LIC-functions.
