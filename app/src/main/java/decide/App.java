@@ -124,6 +124,19 @@ class App {
     }
 
     boolean lic_2 () {
+        if (params.EPSILON < 0 || params.EPSILON >= PI || numPoints < 3) return false;
+        double distAB;       double distBC;     double distAC;      double angle;
+        for (int i = 0; i < numPoints - 2; i++) {
+            distAB = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+1], 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+1], 2));
+            distBC = Math.sqrt(Math.pow(COORDINATEX[i+1] - COORDINATEX[i+2], 2) + Math.pow(COORDINATEY[i+1] - COORDINATEY[i+2], 2));
+            distAC = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+2], 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+2], 2));
+
+            // If point A or point C coincides with the vertex, point B, continue with next set of points.
+            if (DOUBLECOMPARE(distAB, 0) == Comptype.EQ || DOUBLECOMPARE(distBC, 0) == Comptype.EQ) continue;
+            
+            angle = Math.acos((Math.pow(distAB, 2) + Math.pow(distBC, 2) - Math.pow(distAC, 2)) / (2 * distAB * distBC));
+            if (DOUBLECOMPARE(angle, (PI - params.EPSILON)) == Comptype.LT1111 || DOUBLECOMPARE(angle, (PI + params.EPSILON)) == Comptype.GT) return true;
+        }
         return false;
     }
 
@@ -271,6 +284,24 @@ class App {
     }
 
     boolean lic_10 () {
+        if (params.E_PTS < 1 || params.F_PTS < 1 || numPoints < 5) return false;
+        if (!((params.E_PTS + params.F_PTS) <= (numPoints - 3))) return false;
+
+        double dist1;       double dist2;       double dist3;
+        int second;       int third;
+        double semiperimeter;       double area;
+        for (int first = 0; first < numPoints; first++) {
+            second = (first+params.E_PTS+1) % numPoints;
+            third = (first+params.E_PTS+params.F_PTS+2) % numPoints;
+            
+            dist1 = Math.sqrt(Math.pow(COORDINATEX[first] - COORDINATEX[second] , 2) + Math.pow(COORDINATEY[first] - COORDINATEY[second] , 2));
+            dist2 = Math.sqrt(Math.pow(COORDINATEX[second] - COORDINATEX[third] , 2) + Math.pow(COORDINATEY[second] - COORDINATEY[third] , 2));
+            dist3 = Math.sqrt(Math.pow(COORDINATEX[third] - COORDINATEX[first] , 2) + Math.pow(COORDINATEY[third] - COORDINATEY[first] , 2));
+            // System.out.println("Dist1: " + dist1 + ", dist2: " + dist2 + ", dist3: " + dist3);
+            semiperimeter = (dist1 + dist2 + dist3)/2;
+            area = Math.sqrt(semiperimeter*(semiperimeter-dist1)*(semiperimeter-dist2)*(semiperimeter-dist3));
+            if (DOUBLECOMPARE(area, params.AREA1) == Comptype.GT) return true;
+        }
         return false;
     }
 
