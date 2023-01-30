@@ -1,8 +1,6 @@
 package decide;
 
 import java.lang.Math;
-import java.util.Collections;
-import java.util.Arrays;
 
 class App {
 
@@ -292,7 +290,6 @@ class App {
             dist1 = Math.sqrt(Math.pow(COORDINATEX[first] - COORDINATEX[second] , 2) + Math.pow(COORDINATEY[first] - COORDINATEY[second] , 2));
             dist2 = Math.sqrt(Math.pow(COORDINATEX[second] - COORDINATEX[third] , 2) + Math.pow(COORDINATEY[second] - COORDINATEY[third] , 2));
             dist3 = Math.sqrt(Math.pow(COORDINATEX[third] - COORDINATEX[first] , 2) + Math.pow(COORDINATEY[third] - COORDINATEY[first] , 2));
-            // System.out.println("Dist1: " + dist1 + ", dist2: " + dist2 + ", dist3: " + dist3);
             semiperimeter = (dist1 + dist2 + dist3)/2;
             area = Math.sqrt(semiperimeter*(semiperimeter-dist1)*(semiperimeter-dist2)*(semiperimeter-dist3));
             if (DOUBLECOMPARE(area, params.AREA1) == Comptype.GT) return true;
@@ -420,27 +417,53 @@ class App {
             return Comptype.LT1111;
         return Comptype.GT;
     }
-    public static double findRadius (double x1, double y1,double x2, double y2,double x3, double y3){
-        double x12 = x1 - x2;
-        double x13 = x1 - x3;
-        double y12 = y1 - y2;
-        double y13 = y1 - y3;
-        double y31 = y3 - y1;
-        double y21 = y2 - y1;
-        double x31 = x3 - x1;
-        double x21 = x2 - x1;
-        double sx13 = (Math.pow(x1, 2) - Math.pow(x3, 2));
-        double sy13 = (Math.pow(y1, 2) - Math.pow(y3, 2));
-        double sx21 = (Math.pow(x2, 2) - Math.pow(x1, 2));
-        double sy21 = (Math.pow(y2, 2) - Math.pow(y1, 2));
-        double f = ((sx13) * (x12)+ (sy13) * (x12)+ (sx21) * (x13)+ (sy21) * (x13))/ (2 * ((y31) * (x12) - (y21) * (x13)));
-        double g = ((sx13) * (y12)+ (sy13) * (y12)+ (sx21) * (y13)+ (sy21) * (y13))/ (2 * ((x31) * (y12) - (x21) * (y13)));
-        double c = -Math.pow(x1, 2) - Math.pow(y1, 2) - 2 * g * x1 - 2 * f * y1;
-        double h = -g;
-        double k = -f;
-        double sqr_of_r = h * h + k * k - c;
-        double r = Math.sqrt(sqr_of_r);
-        return (r);
+    public double findRadius (double x1, double y1,double x2, double y2,double x3, double y3){
+        double degree1 = findDegree(x1, y1, x2, y2, x3, y3);
+        double degree2 = findDegree(x3, y3, x2, y2, x1, y1);
+        double degree3 = findDegree(x3, y3, x1, y1, x2, y2);
+        double maxDegree = Math.max(degree3,Math.max(degree1, degree2));
+        double dist1 = euDist(x1, x2, y1, y2);          double dist2 =  euDist(x1, x3, y1, y3);            
+        double dist3 = euDist(x2, x3, y2, y3);
+        if(areCollinear(x1, y1, x2, y2, x3, y3)){
+            return Math.max(Math.max(dist1, dist2), dist3) / 2;
+        }
+        else if(DOUBLECOMPARE(maxDegree, 90) == Comptype.LT1111){
+            double x12 = x1 - x2;
+            double x13 = x1 - x3;
+            double y12 = y1 - y2;
+            double y13 = y1 - y3;
+            double y31 = y3 - y1;
+            double y21 = y2 - y1;
+            double x31 = x3 - x1;
+            double x21 = x2 - x1;
+            double sx13 = (Math.pow(x1, 2) - Math.pow(x3, 2));
+            double sy13 = (Math.pow(y1, 2) - Math.pow(y3, 2));
+            double sx21 = (Math.pow(x2, 2) - Math.pow(x1, 2));
+            double sy21 = (Math.pow(y2, 2) - Math.pow(y1, 2));
+            double f = ((sx13) * (x12)+ (sy13) * (x12)+ (sx21) * (x13)+ (sy21) * (x13))/ (2 * ((y31) * (x12) - (y21) * (x13)));
+            double g = ((sx13) * (y12)+ (sy13) * (y12)+ (sx21) * (y13)+ (sy21) * (y13))/ (2 * ((x31) * (y12) - (x21) * (y13)));
+            double c = -Math.pow(x1, 2) - Math.pow(y1, 2) - 2 * g * x1 - 2 * f * y1;
+            double h = -g;
+            double k = -f;
+            double sqr_of_r = h * h + k * k - c;
+            double r = Math.sqrt(sqr_of_r);
+            return (r);
+        } else{
+            return Math.max(dist1,Math.max(dist2,dist3)) / 2;
+        }
+        
+    }
+
+    public double findDegree(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double a = Math.sqrt(Math.pow(x2 - x3, 2) + Math.pow(y2 - y3, 2));
+        double b = Math.sqrt(Math.pow(x1 - x3, 2) + Math.pow(y1 - y3, 2));
+        double c = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+        double angle = Math.acos((a * a + b * b - c * c) / (2 * a * b));
+        return Math.toDegrees(angle);
+    }
+
+    public boolean areCollinear(double x1, double y1, double x2, double y2, double x3, double y3) {
+        return (y1 - y2) * (x1 - x3) == (y1 - y3) * (x1 - x2);
     }
 
     // Should call on all the LIC-functions.
