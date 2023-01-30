@@ -8,6 +8,26 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
+    @Test void lic_0Test(){
+    int numPoints = 2;    
+    double[] COORDINATEX = {2.1, 0.1};
+    double[] COORDINATEY = {3.3, 1.1};  
+    App.Parameters params = new App.Parameters();       params.RADIUS1 = 9.31; params.LENGTH1 = 1;
+    App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+    boolean actualValue = testInstance.lic_0();
+    assertEquals(true, actualValue);
+    }
+
+    @Test void lic_0Test2(){
+        int numPoints = 2;
+        double[] COORDINATEX = {1.1, 2.9};
+        double[] COORDINATEY = {2.3, 2.1};  
+        App.Parameters params = new App.Parameters();       params.RADIUS1 = 9.31; params.LENGTH1 = 2;
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_0();
+        assertEquals(false, actualValue);
+        }
+
     @Test void lic_1Test(){
         int numPoints = 10;
         double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1, 5.1, 8.1, -6.9, 3.1, -1.9, 1.1};
