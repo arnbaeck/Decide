@@ -47,6 +47,44 @@ class AppTest {
         boolean actualValue = testInstance.lic_1();
         assertEquals(false, actualValue);
     }
+
+    
+    // Test that an acceptable set returns true.
+    @Test void lic_2Test1() {
+        int numPoints = 5;
+        double[] COORDINATEX = {1.1, -2.9, 2.1, 4.1, 5.1};
+        double[] COORDINATEY = {2.1, 3.1, -4.9, 2.1, 5.1};
+
+        App.Parameters params = new App.Parameters();
+        params.EPSILON = 2;
+
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_2();
+        assertEquals(true, actualValue);
+    }
+    
+    @Test void lic_2Test2() {
+        int numPoints = 3;
+        double[] COORDINATEX = {1.6, 1.63, 1.7};
+        double[] COORDINATEY = {-3.7, -3.79, -4.0};
+
+        App.Parameters params = new App.Parameters();
+        params.EPSILON = 3;
+
+        App testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        boolean actualValue = testInstance.lic_2();
+        assertEquals(false, actualValue);
+
+        // Test that a set of points where one set coincides with the vertex, and 
+        // contains no other valid sets, returns false.
+        COORDINATEX[2] = 1.63;
+        COORDINATEY[2] = -3.79;
+
+        testInstance = new App(numPoints, COORDINATEX, COORDINATEY, null, params, null, null);
+        actualValue = testInstance.lic_2();
+        assertEquals(false, actualValue);
+    }
+}
     
     @Test void lic_3Test(){
         int numPoints = 4;

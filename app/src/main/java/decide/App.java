@@ -95,6 +95,19 @@ class App {
     }
 
     boolean lic_2 () {
+        if (params.EPSILON < 0 || params.EPSILON >= PI || numPoints < 3) return false;
+        double distAB;       double distBC;     double distAC;      double angle;
+        for (int i = 0; i < numPoints - 2; i++) {
+            distAB = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+1], 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+1], 2));
+            distBC = Math.sqrt(Math.pow(COORDINATEX[i+1] - COORDINATEX[i+2], 2) + Math.pow(COORDINATEY[i+1] - COORDINATEY[i+2], 2));
+            distAC = Math.sqrt(Math.pow(COORDINATEX[i] - COORDINATEX[i+2], 2) + Math.pow(COORDINATEY[i] - COORDINATEY[i+2], 2));
+
+            // If point A or point C coincides with the vertex, point B, continue with next set of points.
+            if (DOUBLECOMPARE(distAB, 0) == Comptype.EQ || DOUBLECOMPARE(distBC, 0) == Comptype.EQ) continue;
+            
+            angle = Math.acos((Math.pow(distAB, 2) + Math.pow(distBC, 2) - Math.pow(distAC, 2)) / (2 * distAB * distBC));
+            if (DOUBLECOMPARE(angle, (PI - params.EPSILON)) == Comptype.LT1111 || DOUBLECOMPARE(angle, (PI + params.EPSILON)) == Comptype.GT) return true;
+        }
         return false;
     }
 
