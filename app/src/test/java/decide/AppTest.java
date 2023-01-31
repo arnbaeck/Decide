@@ -181,7 +181,12 @@ class AppTest {
         boolean actualValue = testInstance.lic_4();
         assertEquals(false, actualValue);
     }
-
+    /**
+    *This test is for LIC 5 and checks if there are any points on which fullfills  X[j] - X[i] < 0.
+    * (where i = j-1) I and J are data points represented as COORDINATEX and COORDINATEY which each hold
+    * the x or y value for the specific data point. Since the coordinated have x values which are smaller
+    * than it's predecessor, it asserts that the answer is true.
+    */
     @Test void lic_5Test1(){
         int numPoints = 10;
         double[] COORDINATEX = {1.5, 3.2, 2.5, 4.5, 1.5, -2.5, -6.9, 3.1, -1.9, 1.1};
@@ -191,7 +196,12 @@ class AppTest {
         boolean actualValue = testInstance.lic_5();
         assertEquals(true, actualValue);
     }
-
+    /** 
+    * This test is for LIC 5 and checks if there are any points on which fullfills  X[j] - X[i] < 0.
+    * (where i = j-1) I and J are data points represented as COORDINATEX and COORDINATEY which each hold
+    * the x or y value for the specific data point. Since the coordinated don't have x values which are smaller
+    * than it's predecessor, it asserts that the answer is false.
+    */
     @Test void lic_5Test2(){
         int numPoints = 10;
         double[] COORDINATEX = {1.5, 3.2, 4.5, 5.5, 6.5, 6.5, 6.9, 7.1, 8, 9.1};
@@ -201,7 +211,12 @@ class AppTest {
         boolean actualValue = testInstance.lic_5();
         assertEquals(false, actualValue);
     }
-
+    /** 
+    * This test for LIC 6 checks that there exists a set of points which is N_PTS big and any of the points are farther
+    * away than DIST from the line created by the first and last point in the set. This specific test
+    * check that it works for numPoints = 3 which is the size of the set. DIST is based on the actual difference
+     * to see if the method returns true correctly.
+     * */
      @Test void lic_6Test1(){
         int numPoints = 3;
         double[] COORDINATEX = {20,3 ,-5};
@@ -211,7 +226,13 @@ class AppTest {
         boolean actualValue = testInstance.lic_6();
         assertEquals(true, actualValue);
     }
-
+    /** 
+    * This test for LIC 6 checks that there exists a set of points which is N_PTS big and any of the points are farther
+    * away than DIST from the line created by the first and last point in the set. This specific test
+    * check that it works for numPoints = 10 and sets of size 5. DIST is set to 4.5 which is a larger distance
+    * than any of the points in a set are from a line created by the first and last data points of said set. As
+    * such the test asserts that the method returns false
+    */
     @Test void lic_6Test2(){
         int numPoints = 10;
         double[] COORDINATEX = {5, -3, -5, 0, 1, 1, 2, 4, 2, 2.4};
@@ -287,7 +308,11 @@ class AppTest {
           boolean actualValue = testInstance.lic_8();
           assertEquals(true, actualValue);
     }
-
+    /**
+    * Tests the LIC 9 method using the minimum number of data points and data set. It creates an angle of 90 degrees
+    * which is less PI + epilon which is given a value of 1 radian. 90 degrees is around 1.5 which is less than
+    * 3.14 - 1 = 2.14 and the test asserts this true
+    */
     @Test void lic_9Test1(){
         int numPoints = 5;
         double[] COORDINATEX = {0, 4, 0, 4, 10};
@@ -298,7 +323,11 @@ class AppTest {
         boolean actualValue = testInstance.lic_9();
         assertEquals(true, actualValue);
     }
-
+    /**
+    * This test the LIC 9 method with an absurd large value of epsilon as epsilon does not have any max value, No angle
+    * will be larget than pi + epsilon or smaller than pi - epsilon. Thus, the test is made to assert that false
+    * is returned.
+    */
     @Test void lic_9Test2(){
         int numPoints = 10;
         double[] COORDINATEX = {-5, -3, -5, 0, 1, 1, 2, 4, 2, 2.4};
@@ -385,7 +414,13 @@ class AppTest {
         boolean actualValue = testInstance.lic_12();
         assertEquals(false, actualValue);
     }
-
+    /**
+    * LIC 13 check is any points in a set of 3 data points seperated by A_PTS and B_PTS can/can't be contained
+    * by two circles. The smaller circle in the test have RADIUS1 and the larger RADIUS2. Meaning the circle
+    * created by the point shave to be equal or larger than Radius1 and equal or smaller than Radius2.
+    * The value in the test was chosen after using a tool to find the exact answer for the selected data points
+    * to see if the method would return true.
+    */
     @Test void lic_13Test1(){
         int numPoints = 5;
         double[] COORDINATEX = {0, 0, 2, 4, 3};
