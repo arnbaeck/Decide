@@ -60,7 +60,12 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
-
+    /*
+     * This method tests if the calculation of radius of the circle that contains three consecutive points within or on it  
+     * is made correctly when the three points are collinear.
+     * (Calculated distance is 2.828)
+     * (Expected output is false since these three points can fit in the circle with radius of 1.42)  
+     */
     @Test void lic_1Test3(){
         int numPoints = 3;
         double[] COORDINATEX = {1.1, 2.1, 3.1};
@@ -71,6 +76,13 @@ class AppTest {
         assertEquals(false, actualValue);
     }
 
+    
+    /*
+     * This method tests if the calculation of radius of the circle that contains three consecutive points within or on it  
+     * is made correctly when the three points are collinear.
+     * (Calculated distance is 2.828)
+     * (Expected output is true since these three points can not fit in the circle with radius of 1.40)  
+     */
     @Test void lic_1Test4(){
         int numPoints = 3;
         double[] COORDINATEX = {1.1, 2.1, 3.1};
