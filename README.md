@@ -21,3 +21,7 @@ Oguz: 1, 3, 14.
 Gabriel: 0, 7, 8, 11.
 
 Pull requests were made for each of the method implementations, it was made sure that everyone received a roughly equal amount of issues to merge. Some additional issues were created along the way to fix bugs and add missing documentation. After Gabriel had created a few issues as compensation for missing out at the beginning, the creation, resolving and merging of these issues and implementations were also attempted to evenly distribute among the members. However, while the issues were distributed among the members, some collaboration occurred when discussing how to write or fix problems or implementations. This was done over slack during the weekend, or in person when we sat on campus on monday. 
+
+For P+:
+The most commits are linked to an issue which describes the feature.
+ 
